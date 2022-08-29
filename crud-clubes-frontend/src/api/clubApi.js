@@ -20,7 +20,7 @@ async function cretateTeam() {
   return createdTeam.data;
 }
 
-async function editTeam(tla, body,file) {
+async function editTeam(tla, body, file) {
     
   const response = await fetch(`${baseUrl}${tla}`, {
     body,

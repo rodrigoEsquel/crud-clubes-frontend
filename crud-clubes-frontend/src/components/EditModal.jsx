@@ -1,7 +1,27 @@
+import { useRef } from 'react';
 import api from '../api/clubApi.js'
 import Input from './Input.jsx';
+import handlePost from '../utilities/handlePost.js';
+import { useState } from 'react';
 
-function EditModal({focusedTeam, isOpen, hide}) {  
+const emptyTeam = {
+  name: '',
+  tla: '',
+  areaName: '',
+  website: '',
+  email: '',
+};
+
+function EditModal({focusedTeam, isOpen, hide}) {
+  const [team, setTeam] = useState(emptyTeam);
+  const file = useRef()
+
+  const handleInput = (event) => {
+    const key = event.target.name;
+    const value = event.target.value;
+    setTeam(state => ({...state, [key]: value}))
+  }
+
   return (
     <div tabIndex='-1' className={'w-96 overflow-visible fixed top-1 left-1/2 -translate-x-1/2 z-50 h-modal md:h-full'+ (isOpen ? '' : ' hidden')}>
       <div className='relative p-4 w-full max-w-md h-full md:h-auto'>
@@ -13,13 +33,16 @@ function EditModal({focusedTeam, isOpen, hide}) {
           <div className='py-6 px-6 lg:px-8'>
           <h3 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>Edit team information</h3>
             <form className='space-y-6' action="" encType="multipart/form-data" method="POST">
-              <Input type='file' name='uploaded_file' placeholder='Image'/>
-              <Input type='text' name='name'placeholder='Name'/>
-              <Input type='text' name='tla' placeholder='TLA'/>
-              <Input type='text' name='areaName' placeholder='Country'/>
-              <Input type='url' name='website' placeholder='Website'/>
-              <Input type='email' name='email' placeholder='E-mail'/>                                    
-              <button type='submit' className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={() =>{ api.editTeam(focusedTeam); hide()}}>Login to your account</button>
+              <div className="relative">
+                <input type='file' name='uploaded_file' ref={file} className="block px-2.5 pb-2.5 pt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white peer" placeholder=" " />
+                <label htmlFor='uploaded_file' className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image</label>
+              </div>
+              <Input type='text' name='name'placeholder='Name' onChange={handleInput} value={team.name}/>
+              <Input type='text' name='tla' placeholder='TLA' onChange={handleInput} value={team.tla}/>
+              <Input type='text' name='areaName' placeholder='Country' onChange={handleInput} value={team.areaName}/>
+              <Input type='url' name='website' placeholder='Website' onChange={handleInput} value={team.website}/>
+              <Input type='email' name='email' placeholder='E-mail' onChange={handleInput} value={team.email}/>
+              <button type='submit' className='w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>Edit Team Information</button>
             </form>
           </div>
         </div>
