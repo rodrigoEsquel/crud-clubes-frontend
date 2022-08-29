@@ -8,7 +8,7 @@ import EditModal from './components/EditModal'
 
 function App() {
   const [teams, setTeams] = useState([]);
-  const [focusedTeam, setFocusedTeam] = useState('');
+  const [focusedTeam, setFocusedTeam] = useState({});
   const [deleteModalIsOpen,setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen,setEditModalIsOpen] = useState(false);
   
@@ -26,7 +26,10 @@ function App() {
     setEditModalIsOpen(true);
     setDeleteModalIsOpen(false);
   };
-  
+  const fetchTeam = async (tla) => {
+    const fetchedTeam = (await api.getTeam(tla))
+    setFocusedTeam(fetchedTeam)
+  }
   
   useEffect(() => {
     async function fetchData() {
@@ -34,12 +37,12 @@ function App() {
     setTeams(fetchedTeams)
   }
   fetchData();
-  }, [deleteModalIsOpen]);
+  }, [deleteModalIsOpen,editModalIsOpen]);
 
 console.log(teams);
   return (
     <div className='App'>
-      <Menu teams={teams} setFocusedTeam={setFocusedTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>
+      <Menu teams={teams} fetchTeam={fetchTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>
       <DeleteModal focusedTeam={focusedTeam} isOpen={deleteModalIsOpen} hide={hideDeleteModal}/>
       <EditModal focusedTeam={focusedTeam} isOpen={editModalIsOpen} hide={hideEditModal}/>
     </div>
