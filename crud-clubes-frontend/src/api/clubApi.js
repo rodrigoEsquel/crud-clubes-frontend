@@ -1,5 +1,4 @@
 const baseUrl = 'http://localhost:8080/v1/';
-const POST = {method: 'POST'};
 const DELETE = {method: 'DELETE'};
 
 
@@ -16,13 +15,18 @@ async function getTeam(tla) {
 }
 
 async function cretateTeam() {
-  const response = await fetch(baseUrl, POST);
+  const response = await fetch(baseUrl, { method: 'POST'});
   const createdTeam = await response.json();
   return createdTeam.data;
 }
 
-async function editTeam(tla) {
-  const response = await fetch(`${baseUrl}${tla}`, POST);
+async function editTeam(tla, body,file) {
+    
+  const response = await fetch(`${baseUrl}${tla}`, {
+    body,
+    file,
+    method: 'POST',
+  });
   const editedTeam = await response.json();
   return editedTeam.data;
 }
