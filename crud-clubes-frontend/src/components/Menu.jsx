@@ -1,6 +1,6 @@
 import Item from './Item';
 
-function Menu({teams, setFocusedTeam, showDeleteModal, showEditModal}) {
+function Menu({teams, fetchTeam, showDeleteModal, showEditModal}) {
   return (
     <div className=''>
       <table className=''>
@@ -12,7 +12,7 @@ function Menu({teams, setFocusedTeam, showDeleteModal, showEditModal}) {
     </tr>
     </thead>
       {teams.map(({crestUrl,tla,name}) => (
-        <Item key={tla} tla={tla} name={name} crestUrl={crestUrl} setFocusedTeam={setFocusedTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>
+        <Item key={tla} tla={tla} name={name} crestUrl={crestUrl} fetchTeam={fetchTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>
       ))}
       </table>
     </div>
