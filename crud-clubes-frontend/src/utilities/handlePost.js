@@ -1,4 +1,4 @@
-async function handlePost(e, callback, tla, team) {
+async function handlePost(e, callback, team, tla) {
   e.preventDefault();
 
   const body = new FormData();
@@ -9,7 +9,7 @@ async function handlePost(e, callback, tla, team) {
   body.append('website',team.website);
   body.append('email',team.email);
 
-  const postedTeam = await callback(tla, body);
+  const postedTeam = await callback(body, tla);
 
   return postedTeam;
 }

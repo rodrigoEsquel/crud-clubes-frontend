@@ -37,7 +37,7 @@ function EditModal({focusedTeam, isOpen, hide}) {
   }
 
   const submit = (event) => {
-    handlePost(event, api.editTeam, focusedTeam?.tla, {...body, uploaded_file: file.current.files[0]}); 
+    handlePost(event, api.editTeam, body, focusedTeam?.tla); 
     resetModal();
   }
 
