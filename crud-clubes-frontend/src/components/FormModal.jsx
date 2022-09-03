@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import api from '../api/clubApi.js'
 import Input from './Input.jsx';
 import handlePost from '../utilities/handlePost.js';
 import { useState } from 'react';
@@ -14,7 +13,7 @@ const emptyBody = {
   uploaded_file: null,
 };
 
-function EditModal({focusedTeam, isOpen, hide}) {
+function FormModal({focusedTeam, isOpen, hide, post}) {
   const [body, setBody] = useState(emptyBody);
   const file = useRef();
 
@@ -37,7 +36,7 @@ function EditModal({focusedTeam, isOpen, hide}) {
   }
 
   const submit = (event) => {
-    handlePost(event, api.editTeam, body, focusedTeam?.tla); 
+    handlePost(event, post, body, focusedTeam?.tla); 
     resetModal();
   }
 
@@ -80,4 +79,4 @@ function EditModal({focusedTeam, isOpen, hide}) {
   );
 }
 
-export default EditModal
+export default FormModal
