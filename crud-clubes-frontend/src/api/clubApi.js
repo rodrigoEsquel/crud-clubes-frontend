@@ -14,14 +14,16 @@ async function getTeam(tla) {
   return team.data;
 }
 
-async function cretateTeam() {
-  const response = await fetch(baseUrl, { method: 'POST'});
-  const createdTeam = await response.json();
-  return createdTeam.data;
+async function cretateTeam(body) {
+    const response = await fetch(baseUrl, {
+    body,
+    method: 'POST',
+  });
+  const editedTeam = await response.json();
+  return editedTeam.data;
 }
 
 async function editTeam(body, tla) {
-    
   const response = await fetch(`${baseUrl}${tla}`, {
     body,
     method: 'POST',
