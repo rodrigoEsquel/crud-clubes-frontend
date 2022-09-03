@@ -23,7 +23,7 @@ function EditModal({focusedTeam, isOpen, hide}) {
   }
 
   return (
-    <div tabIndex='-1' className={'w-96 overflow-visible fixed top-1 left-1/2 -translate-x-1/2 z-50 h-modal md:h-full'+ (isOpen ? '' : ' hidden')}>
+    <div tabIndex='-1' className={'w-96 overflow-visible fixed top-1 left-1/2 -translate-x-1/2 z-50 h-modal md:h-full transition ease-in-out'+ (isOpen ? ' visible opacity-100' : ' invisible opacity-0')}>
       <div className='relative p-4 w-full max-w-md h-full md:h-auto'>
         <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
           <button type='button' className='absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white' onClick={hide}>
