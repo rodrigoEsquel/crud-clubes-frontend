@@ -5,45 +5,50 @@ import handlePost from '../utilities/handlePost.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const emptyTeam = {
+const emptyBody = {
   name: '',
   tla: '',
   areaName: '',
   website: '',
   email: '',
+  uploaded_file: null,
 };
 
 function EditModal({focusedTeam, isOpen, hide}) {
-  const [team, setTeam] = useState(emptyTeam);
+  const [body, setBody] = useState(emptyBody);
   const file = useRef();
 
   useEffect(()=> {
-  setTeam(state => ({...state, 
+  setBody(state => ({...state, 
     name: focusedTeam.name ? focusedTeam.name : '',
     tla: focusedTeam.tla ? focusedTeam.tla : '',
     areaName: focusedTeam.area ? focusedTeam.area.name : '',
     website: focusedTeam.website ? focusedTeam.website : '',
     email: focusedTeam.email ? focusedTeam.email : '',
+    uploaded_file: null,
   }));
   },[focusedTeam])
   
   const resetModal = () => {
     hide();
-    //setTeam(emptyTeam);
     if (file.current) {
       file.current.value = null;
     }
   }
 
-  const submit = (e) => {
-    handlePost(e, api.editTeam, focusedTeam?.tla, {...team, uploaded_file: file.current.files[0]}); 
+  const submit = (event) => {
+    handlePost(event, api.editTeam, focusedTeam?.tla, {...body, uploaded_file: file.current.files[0]}); 
     resetModal();
   }
 
   const handleInput = (event) => {
     const key = event.target.name;
     const value = event.target.value;
-    setTeam(state => ({...state, [key]: value}));
+    setBody(state => ({...state, [key]: value}));
+  }
+
+  const handleFile = (event) => {
+    setBody(state => ({...state, uploaded_file: event.target.files[0]}));
   }
 
   return (
@@ -58,14 +63,14 @@ function EditModal({focusedTeam, isOpen, hide}) {
           <h3 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>Edit team information</h3>
             <form className='space-y-6' action="" encType="multipart/form-data" method="POST" onSubmit={submit}>
               <div className="relative">
-                <input type='file' name='uploaded_file' ref={file} className="block px-2.5 pb-2.5 pt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white peer" placeholder=" " />
+                <input type='file' name='uploaded_file' ref={file} className="block px-2.5 pb-2.5 pt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white peer" placeholder=" " onChange={handleFile}/>
                 <label htmlFor='uploaded_file' className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image</label>
               </div>
-              <Input type='text' name='name'placeholder='Name' onChange={handleInput} value={team.name}/>
-              <Input type='text' name='tla' placeholder='TLA' onChange={handleInput} value={team.tla}/>
-              <Input type='text' name='areaName' placeholder='Country' onChange={handleInput} value={team.areaName}/>
-              <Input type='url' name='website' placeholder='Website' onChange={handleInput} value={team.website}/>
-              <Input type='email' name='email' placeholder='E-mail' onChange={handleInput} value={team.email}/>
+              <Input type='text' name='name'placeholder='Name' onChange={handleInput} value={body.name}/>
+              <Input type='text' name='tla' placeholder='TLA' onChange={handleInput} value={body.tla}/>
+              <Input type='text' name='areaName' placeholder='Country' onChange={handleInput} value={body.areaName}/>
+              <Input type='url' name='website' placeholder='Website' onChange={handleInput} value={body.website}/>
+              <Input type='email' name='email' placeholder='E-mail' onChange={handleInput} value={body.email}/>
               <button type='submit' className='w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>Edit Team Information</button>
             </form>
           </div>
