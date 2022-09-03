@@ -59,7 +59,7 @@ function FormModal({focusedTeam, isOpen, hide, post}) {
             <span className='sr-only'>Close modal</span>
           </button>
           <div className='py-6 px-6 lg:px-8'>
-          <h3 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>Edit team information</h3>
+          <h3 className='mb-4 text-xl text-center font-medium text-gray-900 dark:text-white'>{focusedTeam.name ? `Edit ${focusedTeam.name} information` : 'Create new team'}</h3>
             <form className='space-y-6' action="" encType="multipart/form-data" method="POST" onSubmit={submit}>
               <div className="relative">
                 <input type='file' name='uploaded_file' ref={file} className="block px-2.5 pb-2.5 pt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white peer" placeholder=" " onChange={handleFile}/>
@@ -70,7 +70,7 @@ function FormModal({focusedTeam, isOpen, hide, post}) {
               <Input type='text' name='areaName' placeholder='Country' onChange={handleInput} value={body.areaName}/>
               <Input type='url' name='website' placeholder='Website' onChange={handleInput} value={body.website}/>
               <Input type='email' name='email' placeholder='E-mail' onChange={handleInput} value={body.email}/>
-              <button type='submit' className='w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>Edit Team Information</button>
+              <button type='submit' className='w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>{focusedTeam.name ? 'Edit' : 'Create'}</button>
             </form>
           </div>
         </div>
