@@ -12,34 +12,36 @@ function App() {
   const [deleteModalIsOpen,setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen,setEditModalIsOpen] = useState(false);
   
-  const hideDeleteModal = () => {
-    setDeleteModalIsOpen(false);
-  };
   const showDeleteModal = () => {
     setDeleteModalIsOpen(true);
     setEditModalIsOpen(false);
   };
-    const hideEditModal = () => {
-    setEditModalIsOpen(false);
+  const hideDeleteModal = () => {
+    setDeleteModalIsOpen(false);
+    setFocusedTeam({});
   };
   const showEditModal = () => {
     setEditModalIsOpen(true);
     setDeleteModalIsOpen(false);
   };
+  const hideEditModal = () => {
+  setEditModalIsOpen(false);
+  setFocusedTeam({});
+};
   const fetchTeam = async (tla) => {
     const fetchedTeam = (await api.getTeam(tla))
     setFocusedTeam(fetchedTeam)
   }
   
   useEffect(() => {
-    async function fetchData() {
+    (async function fetchData() {
       const fetchedTeams = (await api.getTeams())
     setTeams(fetchedTeams)
-  }
-  fetchData();
-  }, [deleteModalIsOpen,editModalIsOpen]);
+    })();
+  }, [focusedTeam]);
 
-console.log(teams);
+  console.log(focusedTeam)
+
   return (
     <div className='App'>
       <Menu teams={teams} fetchTeam={fetchTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>

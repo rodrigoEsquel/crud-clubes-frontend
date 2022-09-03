@@ -20,11 +20,10 @@ async function cretateTeam() {
   return createdTeam.data;
 }
 
-async function editTeam(tla, body, file) {
+async function editTeam(tla, body) {
     
   const response = await fetch(`${baseUrl}${tla}`, {
     body,
-    file,
     method: 'POST',
   });
   const editedTeam = await response.json();
