@@ -2,7 +2,7 @@ import Item from './Item';
 
 function Menu({teams, fetchTeam, showDeleteModal, showEditModal}) {
   return (
-    <div className=''>
+    <div className='shadow-xl p-2'>
       <table className=''>
         <thead>
     <tr className=''>

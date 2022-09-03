@@ -55,9 +55,9 @@ function App() {
   }, [focusedTeam]);
 
   return (
-    <div className='container center'>
+    <div className='my-3 flex justify-center'>
       <Menu teams={teams} fetchTeam={fetchTeam} showDeleteModal={showDeleteModal} showEditModal={showEditModal}/>
-      <div className='fixed bottom-6 right-6'><Button text='new' color='yellow' onClick={() => {showCreateModal(); setFocusedTeam({})}}/></div>
+      <div className='fixed bottom-6 right-6'><Button text='New team' color='yellow' onClick={() => {showCreateModal(); setFocusedTeam({})}}/></div>
       <DeleteModal focusedTeam={focusedTeam} isOpen={deleteModalIsOpen} hide={hideDeleteModal}/>
       <FormModal focusedTeam={focusedTeam} isOpen={editModalIsOpen} hide={hideEditModal} post={api.editTeam}/>
       <FormModal focusedTeam={focusedTeam} isOpen={createModalIsOpen} hide={hideCreateModal} post={api.cretateTeam}/>

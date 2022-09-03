@@ -11,8 +11,8 @@ function Item({crestUrl, tla, name, fetchTeam, showDeleteModal, showEditModal}) 
                   </div>
                 </div>
           </td>
-          <td className='py-4 px-6 border-b border-grey-light'>{name}</td>
-          <td className='py-4 px-6 border-b border-grey-light'>
+          <td className='py-4 border-b border-grey-light'>{name}</td>
+          <td className='py-4 border-b border-grey-light'>
             <Button text='View' color='blue' onClick={()=>{}}/>
             <Button text='Edit' color='green' onClick={() => {showEditModal(); fetchTeam(tla)}}/>
             <Button text='Delete' color='red' onClick={() => {showDeleteModal(); fetchTeam(tla)}}/>
